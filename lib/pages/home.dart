@@ -4,6 +4,7 @@ import 'package:flutter_application_1/widgets/pagefirst.dart';
 import 'package:flutter_application_1/widgets/customcard.dart';
 import 'package:flutter_application_1/widgets/curved.dart';
 import 'package:flutter_application_1/widgets/datecard.dart';
+import 'package:flutter_application_1/pages/addmed.dart';
 
 
 class Home extends StatefulWidget {
@@ -34,13 +35,18 @@ class _HomeState extends State<Home> {
                 ),
                 title: 'My Reminders',
               ),
-                CustomCard(
-                icon: Image.asset(
-                  'assets/cabinet.png',
-                  width: 80,
+                InkWell(
+                  onTap: (){
+                    Navigator.push(context,MaterialPageRoute(builder: (context)=>AddMed()));
+                  },
+                  child: CustomCard(
+                  icon: Image.asset(
+                    'assets/cabinet.png',
+                    width: 80,
+                  ),
+                  title: 'My Pills',
+                              ),
                 ),
-                title: 'My Pills',
-              ),
           ]
             
         )
@@ -54,6 +60,11 @@ class _HomeState extends State<Home> {
                Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                ),
+               SizedBox(
+                height: 50,
+               ),
+               Center(child: 
+               Text("no reminders today")),
 
                ],
         ),
