@@ -1,8 +1,8 @@
 import'package:flutter/material.dart';
 import 'package:flutter_application_1/widgets/buttonprimary.dart';
 import 'package:flutter_application_1/widgets/general_logo.dart';
-import 'package:flutter_application_1/widgets/illustrations.dart';
-import 'package:flutter_application_1/widgets/home.dart';
+import 'package:flutter_application_1/pages/illustrations.dart';
+import 'package:flutter_application_1/pages/home.dart';
 class FirstScreen extends StatelessWidget { 
   @override
   Widget build(BuildContext context) {
@@ -15,13 +15,7 @@ class FirstScreen extends StatelessWidget {
             Illustration(
             ),
             SizedBox(height:40.0),
-            ButtonPrimary(
-              //onTap:(
-                //{
-                  //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Home()))
-                //}
-              //)
-            ),
+            ButtonPrimary(text:"Get Started"),
         ],
         )
       ),

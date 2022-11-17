@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/widgets/theme.dart';
+import 'package:flutter_application_1/theme.dart';
 import 'package:flutter_application_1/widgets/pagefirst.dart';
 import 'package:flutter_application_1/widgets/customcard.dart';
 import 'package:flutter_application_1/widgets/curved.dart';
+import 'package:flutter_application_1/widgets/datecard.dart';
+
 
 class Home extends StatefulWidget {
   const Home ({super.key});
@@ -12,12 +14,15 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+    DateTime _selectedDay =
+      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
   @override
   Widget build(BuildContext context) {
     return PageFirstLayout(
 
       topChild: Padding(
         padding: EdgeInsets.fromLTRB(MediaQuery. of(context). size. width / 20,0,MediaQuery. of(context). size. width / 20, MediaQuery. of(context). size. width / 20),
+        
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -39,6 +44,19 @@ class _HomeState extends State<Home> {
           ]
             
         )
+        ),
+        containerChild: Padding(
+        padding: EdgeInsets.fromLTRB(MediaQuery. of(context). size. width / 20,0, MediaQuery. of(context). size. width / 20,0 ),
+        child: ListView(
+          children: [
+            DateCard(_selectedDay),
+            SizedBox(height: 32),
+               Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+               ),
+
+               ],
+        ),
         )
       );
   }

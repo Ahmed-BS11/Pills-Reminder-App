@@ -18,7 +18,7 @@ class Illustration extends StatelessWidget {
         width:150,),
         ],),
         SizedBox(height:40.0,),
-        Text("your medication reminder is here",
+        Text("Be in control of your meds",
         style:GoogleFonts.lato(textStyle:TextStyle(
         color:Colors.black,
         fontWeight: FontWeight.w700,
@@ -27,14 +27,17 @@ class Illustration extends StatelessWidget {
         ),
         ),
         ),
+        SizedBox(
+          height: 20.0,
+        ),
         Text(" To never forget a Med again , +Med health  fullfils all your medication needs in one place .",
         style:GoogleFonts.lato(textStyle:TextStyle(
           color:Color.fromARGB(255, 132, 132, 132),
           letterSpacing: .3,
           fontSize: 18,
-          
           ),
         ),
+        textAlign: TextAlign.center,
         ),
         SizedBox(
           height:40.0,

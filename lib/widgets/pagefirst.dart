@@ -1,11 +1,13 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/widgets/curved.dart';
-import 'package:flutter_application_1/widgets/theme.dart';
-
+import 'package:flutter_application_1/widgets/first.dart';
+import 'package:flutter_application_1/theme.dart';
 
 class PageFirstLayout extends StatelessWidget {
   PageFirstLayout(
       {
+        
         this.appBarTitle ='',
         this.appBarRight = const SizedBox(height: 0, width: 0),
         this.color = MyColors.Landing2,
@@ -24,6 +26,14 @@ class PageFirstLayout extends StatelessWidget {
     return Scaffold(
       backgroundColor: color,
       appBar: AppBar(
+        leading: IconButton(icon: Icon(
+          Icons.arrow_back
+        ),
+        onPressed: (){
+          Navigator.pop( context );
+        },
+        ),
+        
         toolbarHeight: 80,
         titleSpacing: 30,
         title: Text(
@@ -40,7 +50,7 @@ class PageFirstLayout extends StatelessWidget {
         elevation: 0.0,
         backgroundColor: color,
         iconTheme: IconThemeData(
-          color: Colors.black, //change your color here
+          color: Colors.white, //change your color here
         ),
       ),
       body:
@@ -49,9 +59,11 @@ class PageFirstLayout extends StatelessWidget {
         topChild,
         CurvedContainer(
             containerChild
-        ),
-        ],
       ),
+        ],
+      
+    ),
     );
   }
+ 
 }
