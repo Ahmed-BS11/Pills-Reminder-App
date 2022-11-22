@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/home.dart';
 import 'package:flutter_application_1/pages/newaccount.dart';
 import 'package:flutter_application_1/theme.dart';
 import 'package:flutter_application_1/widgets/pagefirst.dart';
@@ -35,7 +36,7 @@ class _LoginDemoState extends State<LoginDemo> {
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Text("Login Page",textAlign: TextAlign.center,)),
-        backgroundColor: MyColors.LapisLazuli,
+        backgroundColor: Color(0xFF83CBC8),
         automaticallyImplyLeading: true,
       ),
       body: SingleChildScrollView(
@@ -45,13 +46,18 @@ class _LoginDemoState extends State<LoginDemo> {
               padding: const EdgeInsets.only(top: 60.0),
               child: Center(
                 child: Container(
-                    width: 200,
-                    height: 150,
+                    //width: 200,
+                    //height: 150,
                     /*decoration: BoxDecoration(
                         color: Colors.red,
                         borderRadius: BorderRadius.circular(50.0)),*/
-                    child: Image.asset('assets/logo.png')),
+                    child: Image.asset('assets/logo.png',
+                     width:115,)
+                     ),
               ),
+            ),
+            SizedBox(
+              height: 50,
             ),
             Padding(
               //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
@@ -91,18 +97,21 @@ class _LoginDemoState extends State<LoginDemo> {
               ),
             ),
             Container(
-              height: 50,
-              width: 250,
+              width:MediaQuery.of(context).size.width - 100 ,
+              height: 50 ,
               decoration: BoxDecoration(
                   color: Color.fromARGB(255, 102, 138, 174), borderRadius: BorderRadius.circular(20)),
               child: TextButton(
                 onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => PageFirstLayout()));
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) {
+                        return Home();
+                      } ) );
                 },
+                
                 child: Text(
                   'Login',
-                  style: TextStyle(color: Colors.white, fontSize: 25),
+                  style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
               ),
             ),

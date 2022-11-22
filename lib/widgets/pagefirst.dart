@@ -26,13 +26,11 @@ class PageFirstLayout extends StatelessWidget {
     return Scaffold(
       backgroundColor: color,
       appBar: AppBar(
-        leading: IconButton(icon: Icon(
-          Icons.arrow_back
-        ),
-        onPressed: (){
-          Navigator.pop( context );
-        },
-        ),
+        //leading: IconButton(icon: Icon(
+          //Icons.arrow_back
+        //),
+        //onPressed: (){}
+        //),
         
         toolbarHeight: 80,
         titleSpacing: 30,
@@ -41,7 +39,8 @@ class PageFirstLayout extends StatelessWidget {
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.normal,
-            letterSpacing: 0.6
+            letterSpacing: 0.6,
+            fontFamily:'Raleway',
           ),
         ),
         actions: [
@@ -50,7 +49,7 @@ class PageFirstLayout extends StatelessWidget {
         elevation: 0.0,
         backgroundColor: color,
         iconTheme: IconThemeData(
-          color: Colors.white, //change your color here
+          color: Colors.black, //change your color here
         ),
       ),
       body:

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/widgets/first.dart';
+import 'package:flutter_application_1/pages/medicine_add.dart';
 
 
 void main()=>runApp(MyApp());

@@ -4,6 +4,7 @@ import 'package:flutter_application_1/widgets/buttonprimary.dart';
 import 'package:flutter_application_1/widgets/general_logo.dart';
 import 'package:flutter_application_1/pages/illustrations.dart';
 import 'package:flutter_application_1/widgets/pagefirst.dart';
+import 'package:flutter_application_1/pages/medicine_add.dart';
 class AddMed extends StatefulWidget {
   //const AddMed ({super.key});
    //String searchString = "";
@@ -17,7 +18,13 @@ class _AddMedState extends State<AddMed> {
       appBarRight: IconButton(
         icon: Icon(Icons.add),
         onPressed: (){
-          Navigator.pushNamed(context, '/medicine_add');
+          Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) {
+                        return Med_add();
+                      }
+                      ),
+          );      
+          
         },
       ),
       topChild: Container(
@@ -51,6 +58,11 @@ class _AddMedState extends State<AddMed> {
           ),
         ),
       ),
+      containerChild:Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+      )
+      
+     
     );
   } 
     
