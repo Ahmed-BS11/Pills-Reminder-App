@@ -6,9 +6,20 @@ import 'package:flutter_application_1/theme.dart';
   //const Med_add({super.key});
 
 
-class Med_add extends StatelessWidget {
-  
+class Med_add extends StatefulWidget {
+  const Med_add({super.key});
 
+  @override
+  State<Med_add> createState() => _Med_addState();
+}
+
+class _Med_addState extends State<Med_add> {
+   List imgList = [
+    Image.asset('assets/im1.png'),
+    Image.asset('assets/im4.jpg'),
+    Image.asset('assets/medicineBottle (1).png'),
+    Image.asset('assets/pill.png'),
+  ];
   @override
   Widget build(BuildContext context) {
     return PageFirstLayout(
@@ -36,7 +47,7 @@ class Med_add extends StatelessWidget {
           child: Column(
             children:<Widget>[
               Container(
-                child:Text('shape',textAlign:TextAlign.left,
+                child:Text('Shapes',textAlign:TextAlign.left,
                 style:TextStyle(
                   fontSize:15,
                   fontFamily: 'Raleway',
@@ -48,65 +59,78 @@ class Med_add extends StatelessWidget {
 
               ),
               SizedBox(height: 10,),
-              Container(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child:Row(
-                     crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                            Image.asset('assets/medicineBottle (1).png',
-                            width:150,
-                            height:150,),
-                            Image.asset('assets/im1.png',
-                            width:150,
-                            height:150,),
-                            Image.asset('assets/pill.png',
-                            width:150,
-                            height:150,),
-                            Image.asset('assets/im4.jpg',
-                            width:150,
-                            height:150,)
-                          ],
-           )
-          ),
-              ),
-               SizedBox( width: 10),
-              Container(
-                        child:Row(mainAxisAlignment:MainAxisAlignment.spaceEvenly ,
-                           children: [
-                             Container(
-                               child: TextField(
-                                decoration:InputDecoration(
-                                  filled:true,
-                                  fillColor:Colors.white,
-                                  hintText:'Name',
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                    borderSide: BorderSide.none,
-                                )
-                                  ),
-                               
-          ),
-                             ),
-                          
-                        ],)
-                     //SizedBox( width: 10),
-              
-          
-                )
+              Container(),//addlistofview
+              SizedBox( height: 30),
+               Container(
+                child:TextField(
+                  
+                    decoration:InputDecoration(
+                      
+                       suffixText: 'pills',
+                       suffixStyle:TextStyle( color:Colors.black,),
+                      //filled:true,
+                      //fillColor: Color.fromARGB(255, 197, 223, 221),
+                      //hintText:'type dose',
+                      labelText: 'Dose',
+                      labelStyle: TextStyle(
+                        color:Colors.black,
+                      ),
+                      floatingLabelBehavior:FloatingLabelBehavior.auto,
+                      
+
+                       enabledBorder: UnderlineInputBorder( //<-- SEE HERE
+                        borderSide: BorderSide(
+                            width: 3, color:  Color(0xFF76B0DE),
+                       )
+                      ),
+                    ),
+                ),
+
                
+               ),
+               SizedBox(height:50),
+               Container(
+                child:TextField(
+                    maxLines: 3,
+                    keyboardType: TextInputType.multiline,
+                    decoration:InputDecoration(
+                      
+                       //suffixText: 'pills',
+                       //suffixStyle:TextStyle( color:Colors.black,),
+                      //filled:true,
+                      //fillColor: Color.fromARGB(255, 197, 223, 221),
+                      //hintText:'type dose',
+                      labelText: 'Description',
+                      labelStyle: TextStyle(
+                        color:Colors.black,
+                      ),
+                      floatingLabelBehavior:FloatingLabelBehavior.auto,
+                       //isDense: true,
+                       //maxLines: 5,
+                        //contentPadding: EdgeInsets.all(8),
+
+                       enabledBorder: UnderlineInputBorder( //<-- SEE HERE
+                        borderSide: BorderSide(
+                            width: 3, color:  Color(0xFF76B0DE),
+                       )
+                      ),
+                    ),
+                ),
+
+               
+               ),
+
+                     //SizedBox( width: 10),  
             ]
             
           
              
           ),
         )
-       
-
-
+      
+            
+          );
         
-      );
-    
+        
   }
- 
 }
