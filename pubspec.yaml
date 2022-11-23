@@ -72,6 +72,12 @@ flutter:
    - assets/calender.png
    - assets/landing1.png
    - assets/landing3.png
+   - assets/im1.png
+   - assets/im4.jpg
+   - assets/medicineBottle (1).png
+   - assets/pill.png
+   
+
     
    
   # An image asset can refer to one or more resolution-specific "variants", see
