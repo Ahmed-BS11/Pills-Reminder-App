@@ -14,12 +14,15 @@ class Med_add extends StatefulWidget {
 }
 
 class _Med_addState extends State<Med_add> {
-   List imgList = [
-    Image.asset('assets/im1.png'),
-    Image.asset('assets/im4.jpg'),
-    Image.asset('assets/medicineBottle (1).png'),
-    Image.asset('assets/pill.png'),
+   List<String> _icons = [
+    'drug.png',
+    'inhaler.png',
+    'pill.png',
+    'pill_rounded.png',
+    'syringe.png',
+
   ];
+   int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return PageFirstLayout(
@@ -46,20 +49,15 @@ class _Med_addState extends State<Med_add> {
           padding: EdgeInsets.fromLTRB(MediaQuery. of(context). size. width / 20,0, MediaQuery. of(context). size. width / 20,0 ),
           child: Column(
             children:<Widget>[
-              Container(
-                child:Text('Shapes',textAlign:TextAlign.left,
-                style:TextStyle(
-                  fontSize:15,
-                  fontFamily: 'Raleway',
-                  color:Colors.black54,
-                  fontWeight: FontWeight.w200,
-                ),
-                
-                ),
-
+               Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Shape',
+                style: TextStyle(fontWeight: FontWeight.w200, fontSize: 18),
               ),
+            ),
               SizedBox(height: 10,),
-              Container(),//addlistofview
+               _buildShapesList(),//addlistofview
               SizedBox( height: 30),
                Container(
                 child:TextField(
@@ -74,6 +72,8 @@ class _Med_addState extends State<Med_add> {
                       labelText: 'Dose',
                       labelStyle: TextStyle(
                         color:Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w200,
                       ),
                       floatingLabelBehavior:FloatingLabelBehavior.auto,
                       
@@ -103,6 +103,8 @@ class _Med_addState extends State<Med_add> {
                       labelText: 'Description',
                       labelStyle: TextStyle(
                         color:Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w200,
                       ),
                       floatingLabelBehavior:FloatingLabelBehavior.auto,
                        //isDense: true,
@@ -133,4 +135,41 @@ class _Med_addState extends State<Med_add> {
         
         
   }
+  Widget _buildShapesList() {
+    return Container(
+      width: double.infinity,
+      height: 80,
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        children: _icons
+            .asMap()
+            .entries
+            .map((MapEntry map) => _buildIcons(map.key))
+            .toList(),
+      ),
+    );
+  }
+   Widget _buildIcons(int index) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _selectedIndex = index;
+        });
+      },
+      child: Container(
+        padding: EdgeInsets.all(10),
+        height: 70,
+        width: 70,
+        decoration: BoxDecoration(
+          color: (index == _selectedIndex)
+              ? Theme.of(context).accentColor.withOpacity(.4)
+              : Colors.transparent,
+          borderRadius: BorderRadius.circular(40),
+        ),
+        child: Image.asset('assets/' + _icons[index]),
+      ),
+    );
+  }
+
+
 }

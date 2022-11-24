@@ -72,10 +72,11 @@ flutter:
    - assets/calender.png
    - assets/landing1.png
    - assets/landing3.png
-   - assets/im1.png
-   - assets/im4.jpg
-   - assets/medicineBottle (1).png
+   - assets/drug.png
    - assets/pill.png
+   - assets/syringe.png
+   - assets/pill_rounded.png
+   - assets/inhaler.png
    
 
     
