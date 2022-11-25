@@ -28,7 +28,9 @@ class _Med_addState extends State<Med_add> {
     return PageFirstLayout(
       appBarTitle: "Add Pill",
       appBarRight: IconButton(icon: Icon(Icons.check),
-      onPressed: (){},),
+      onPressed: (){
+        _openTimePicker(context);
+      },),
       topChild: Container(
         margin: EdgeInsets.fromLTRB(30,0,30,15),
         child:TextField(
@@ -61,9 +63,10 @@ class _Med_addState extends State<Med_add> {
               SizedBox( height: 30),
                Container(
                 child:TextField(
-                  
-                    decoration:InputDecoration(
-                      
+                       controller: TextEditingController()..text = '0',
+                       onChanged: (text) => {},
+                       decoration:InputDecoration(
+                       
                        suffixText: 'pills',
                        suffixStyle:TextStyle( color:Colors.black,),
                       //filled:true,
@@ -169,6 +172,16 @@ class _Med_addState extends State<Med_add> {
         child: Image.asset('assets/' + _icons[index]),
       ),
     );
+  }
+  Future<void>  _openTimePicker(BuildContext context) async{
+     showTimePicker(
+        initialTime: TimeOfDay.now(),
+        context: context,
+      ).then((selectedTime) async {
+        int hour = selectedTime!.hour;
+        int minute = selectedTime.minute;
+        print(selectedTime);
+      });
   }
 
 
