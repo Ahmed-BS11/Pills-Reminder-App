@@ -7,7 +7,7 @@ import 'package:flutter_application_1/theme.dart';
 
 
 class Med_add extends StatefulWidget {
-  const Med_add({super.key});
+  //const Med_add({super.key});
 
   @override
   State<Med_add> createState() => _Med_addState();
@@ -29,7 +29,28 @@ class _Med_addState extends State<Med_add> {
       appBarTitle: "Add Pill",
       appBarRight: IconButton(icon: Icon(Icons.check),
       onPressed: (){
-        _openTimePicker(context);
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Container(
+          padding:EdgeInsets.all(16),
+          height:90,
+          decoration: BoxDecoration(
+            color: Color(0xFF83CBC8),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+
+          ),
+          child:
+          Center(
+            child: Text("your med has been successfully added ",
+            style:TextStyle(fontSize: 16,
+            fontFamily: 'Raleway',)),
+          ),
+          
+          ),
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.transparent,
+          ),
+               
+        );
+        
       },),
       topChild: Container(
         margin: EdgeInsets.fromLTRB(30,0,30,15),
@@ -173,16 +194,6 @@ class _Med_addState extends State<Med_add> {
       ),
     );
   }
-  Future<void>  _openTimePicker(BuildContext context) async{
-     showTimePicker(
-        initialTime: TimeOfDay.now(),
-        context: context,
-      ).then((selectedTime) async {
-        int hour = selectedTime!.hour;
-        int minute = selectedTime.minute;
-        print(selectedTime);
-      });
-  }
-
+ 
 
 }

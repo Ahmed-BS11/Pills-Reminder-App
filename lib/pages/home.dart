@@ -5,10 +5,11 @@ import 'package:flutter_application_1/widgets/customcard.dart';
 import 'package:flutter_application_1/widgets/curved.dart';
 import 'package:flutter_application_1/widgets/datecard.dart';
 import 'package:flutter_application_1/pages/addmed.dart';
+import 'package:flutter_application_1/pages/myremider.dart';
 
 
 class Home extends StatefulWidget {
-  const Home ({super.key});
+  //const Home ({super.key});
 
   @override
   State<Home> createState() => _HomeState();
@@ -28,13 +29,18 @@ class _HomeState extends State<Home> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
            
-               CustomCard(
-                icon: Image.asset(
-                  'assets/calender.png',
-                  width: 80,
-                ),
-                title: 'My Reminders',
-              ),
+               InkWell(
+                onTap: (){
+                    Navigator.push(context,MaterialPageRoute(builder: (context)=>MyRemider()));
+                  },
+                 child: CustomCard(
+                  icon: Image.asset(
+                    'assets/calender.png',
+                    width: 80,
+                  ),
+                  title: 'My Reminders',
+                             ),
+               ),
                 InkWell(
                   onTap: (){
                     Navigator.push(context,MaterialPageRoute(builder: (context)=>AddMed()));

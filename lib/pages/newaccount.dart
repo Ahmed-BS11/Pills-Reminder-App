@@ -8,7 +8,7 @@ import 'package:flutter_application_1/pages/addmed.dart';
 import 'package:flutter_application_1/pages/login.dart';
 
 class newaccount extends StatefulWidget {
-  const newaccount({super.key});
+  //const newaccount({super.key});
 
   @override
   State<newaccount> createState() => newaccountState();
