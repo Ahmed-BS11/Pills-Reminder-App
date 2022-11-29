@@ -37,11 +37,11 @@ class _MyRemiderState extends State<MyRemider> {
       appBarRight: IconButton(
         icon: Icon(Icons.add),
         onPressed: (){
-          /*Navigator.of(context).push(
+          Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) {
                         return (AddRemider());},
       ),
-          );*/
+          );
           }
       ),
       topChild: Column(
@@ -82,6 +82,9 @@ class _MyRemiderState extends State<MyRemider> {
             ),
           )
         ],
+      ),
+       containerChild:Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
       )
       );
       
