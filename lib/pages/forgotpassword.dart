@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pages/forgotpassword.dart';
 import 'package:flutter_application_1/pages/home.dart';
 import 'package:flutter_application_1/pages/newaccount.dart';
 import 'package:flutter_application_1/theme.dart';
@@ -8,39 +7,38 @@ import 'package:flutter_application_1/widgets/customcard.dart';
 import 'package:flutter_application_1/widgets/curved.dart';
 import 'package:flutter_application_1/widgets/datecard.dart';
 import 'package:flutter_application_1/pages/addmed.dart';
-import 'package:flutter_application_1/pages/newaccount.dart';
-import 'package:flutter_application_1/pages/forgotpassword.dart';
+import 'package:flutter_application_1/pages/login.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(pswreset());
 }
 
-class MyApp extends StatelessWidget {
+class pswreset extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginDemo(),
+      home: PswReset(),
     );
   }
 }
 
-class LoginDemo extends StatefulWidget {
+class PswReset extends StatefulWidget {
   @override
-  _LoginDemoState createState() => _LoginDemoState();
+  _PasswordResetState createState() => _PasswordResetState();
 }
 
-class _LoginDemoState extends State<LoginDemo> {
+class _PasswordResetState extends State<PswReset> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Center(
             child: Text(
-          "Login Page",
+          "Reset your Password",
           textAlign: TextAlign.center,
         )),
-        backgroundColor: Color.fromARGB(255, 102, 138, 174),
+        backgroundColor: MyColors.TealBlue,
         automaticallyImplyLeading: true,
       ),
       body: SingleChildScrollView(
@@ -62,44 +60,18 @@ class _LoginDemoState extends State<LoginDemo> {
               ),
             ),
             SizedBox(
-              height: 50,
-            ),
-            Padding(
-              //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              child: TextField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Email',
-                    hintText: 'Enter valid email id as abc@gmail.com'),
-              ),
+              height: 80,
             ),
             Padding(
               padding: const EdgeInsets.only(
-                  left: 15.0, right: 15.0, top: 10, bottom: 50),
+                  left: 15.0, right: 15.0, top: 20.0, bottom: 20.0),
               //padding: EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
-                obscureText: true,
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Password',
-                    hintText: 'Enter secure password'),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(
-                bottom: 10,
-                top: 10,
-              ),
-              child: TextButton(
-                onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => PswReset()));
-                },
-                child: Text(
-                  'Forgot Password',
-                  style: TextStyle(color: MyColors.LapisLazuli, fontSize: 15),
-                ),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0)),
+                    labelText: 'Email',
+                    hintText: 'Enter valid email id as abc@gmail.com'),
               ),
             ),
             Container(
@@ -110,13 +82,11 @@ class _LoginDemoState extends State<LoginDemo> {
                   borderRadius: BorderRadius.circular(20)),
               child: TextButton(
                 onPressed: () {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (context) {
-                    return Home();
-                  }));
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (_) => Home()));
                 },
                 child: Text(
-                  'Login',
+                  'Reset Your Password',
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
               ),
