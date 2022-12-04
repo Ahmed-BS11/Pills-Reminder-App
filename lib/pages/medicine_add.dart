@@ -145,6 +145,39 @@ class _Med_addState extends State<Med_add> {
 
                
                ),
+               SizedBox(height:50),
+               Container(
+                child:TextField(
+                    //maxLines: 3,
+                    //keyboardType: TextInputType.multiline,
+                    decoration:InputDecoration(
+                      
+                       suffixText: 'pills',
+                       suffixStyle:TextStyle( color:Colors.black,),
+                      //filled:true,
+                      //fillColor: Color.fromARGB(255, 197, 223, 221),
+                      //hintText:'type dose',
+                      labelText: 'Refill on ',
+                      labelStyle: TextStyle(
+                        color:Colors.black,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w200,
+                      ),
+                      floatingLabelBehavior:FloatingLabelBehavior.auto,
+                       //isDense: true,
+                       //maxLines: 5,
+                        //contentPadding: EdgeInsets.all(8),
+
+                       enabledBorder: UnderlineInputBorder( //<-- SEE HERE
+                        borderSide: BorderSide(
+                            width: 3, color:  Color(0xFF76B0DE),
+                       )
+                      ),
+                    ),
+                ),
+
+               
+               ),
 
                      //SizedBox( width: 10),  
             ]
