@@ -6,7 +6,6 @@ import 'package:flutter_application_1/widgets/curved.dart';
 import 'package:flutter_application_1/widgets/datecard.dart';
 import 'package:flutter_application_1/pages/addmed.dart';
 import 'package:flutter_application_1/pages/login.dart';
-import 'package:flutter_application_1/pages/forgotpassword.dart';
 
 class newaccount extends StatefulWidget {
   //const newaccount({super.key});
@@ -20,11 +19,7 @@ class newaccountState extends State<newaccount> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-            child: Text(
-          "Create an Account",
-          textAlign: TextAlign.center,
-        )),
+        title: Center(child: Text("Create an Account",textAlign: TextAlign.center,)),
         automaticallyImplyLeading: true,
         backgroundColor: MyColors.LapisLazuli,
       ),
@@ -51,8 +46,7 @@ class newaccountState extends State<newaccount> {
                     padding: const EdgeInsets.all(20.0),
                     child: new TextField(
                       decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20.0)),
+                          border: OutlineInputBorder(),
                           labelText: 'First Name',
                           hintText: 'Enter your First Name '),
                     ),
@@ -63,8 +57,7 @@ class newaccountState extends State<newaccount> {
                     padding: const EdgeInsets.all(20.0),
                     child: new TextField(
                       decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20.0)),
+                          border: OutlineInputBorder(),
                           labelText: 'Last Name',
                           hintText: 'Enter your Last Name '),
                     ),
@@ -77,8 +70,7 @@ class newaccountState extends State<newaccount> {
               padding: EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0)),
+                    border: OutlineInputBorder(),
                     labelText: 'Email',
                     hintText: 'Enter valid email id as abc@gmail.com'),
               ),
@@ -90,8 +82,7 @@ class newaccountState extends State<newaccount> {
               child: TextField(
                 obscureText: true,
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0)),
+                    border: OutlineInputBorder(),
                     labelText: 'Password',
                     hintText: 'Enter secure password'),
               ),
@@ -103,8 +94,7 @@ class newaccountState extends State<newaccount> {
               child: TextField(
                 obscureText: true,
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0)),
+                    border: OutlineInputBorder(),
                     labelText: 'Confirm Password',
                     hintText: 'Confirm your password'),
               ),
@@ -116,8 +106,7 @@ class newaccountState extends State<newaccount> {
               height: 50,
               width: 250,
               decoration: BoxDecoration(
-                  color: MyColors.LapisLazuli,
-                  borderRadius: BorderRadius.circular(20)),
+                  color: MyColors.LapisLazuli, borderRadius: BorderRadius.circular(20)),
               child: TextButton(
                 onPressed: () {
                   Navigator.push(context,

@@ -15,7 +15,7 @@ class Logo extends StatelessWidget {
         ),
         Image.asset(
           "assets/logo.png",
-          width:175,
+          width:115,
           ),
         child ?? SizedBox(),
 

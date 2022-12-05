@@ -28,9 +28,9 @@ class _Med_addState extends State<Med_add> {
     return PageFirstLayout(
       appBarTitle: "Add Pill",
       appBarRight: IconButton(icon: Icon(Icons.check),
-      onPressed: (){
+      onPressed: (){/*
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Container(
-          padding:EdgeInsets.all(16),
+          //padding:EdgeInsets.all(16),
           height:90,
           decoration: BoxDecoration(
             color: Color(0xFF83CBC8),
@@ -46,12 +46,30 @@ class _Med_addState extends State<Med_add> {
           
           ),
           behavior: SnackBarBehavior.floating,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.black.withOpacity(0.0),
+          //backgroundColor: Colors.transparent,
           ),
                
         );
         
-      },),
+      }*/
+      final snackBar = SnackBar(
+            backgroundColor: Color.fromARGB(255, 166, 223, 219),
+            content: const Text('your med has been successfully added',style: TextStyle(color: Colors.black),),
+            action: SnackBarAction(
+              label: 'X',
+              textColor: Colors.black,
+              onPressed: () {
+                // Some code to undo the change.
+              },
+            ),
+          );
+
+          // Find the ScaffoldMessenger in the widget tree
+          // and use it to show a SnackBar.
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);}
+      
+      ),
       topChild: Container(
         margin: EdgeInsets.fromLTRB(30,0,30,15),
         child:TextField(
