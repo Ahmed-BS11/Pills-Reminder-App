@@ -31,6 +31,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+   
   
 
      
@@ -41,6 +42,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   intl: ^0.17.0
   table_calendar: ^3.0.0-nullsafety.1
+  animated_splash_screen: ^1.3.0
+  lottie: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -79,6 +82,7 @@ flutter:
    - assets/syringe.png
    - assets/pill_rounded.png
    - assets/inhaler.png
+   - lf30_editor_ui30nuub.json
    
 
     
