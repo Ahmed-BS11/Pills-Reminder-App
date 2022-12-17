@@ -248,3 +248,21 @@ class _Med_addState extends State<Med_add> {
  
 
 }
+
+/*final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
+      minimumSize: Size(88, 36),
+      padding: EdgeInsets.symmetric(horizontal: 16),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(2)),
+      ),
+    );
+    ElevatedButton(
+      style: raisedButtonStyle,
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) =>ProfilePAge()),
+        );
+      },
+      child: Text('Looks like a RaisedButton'),
+    ); */

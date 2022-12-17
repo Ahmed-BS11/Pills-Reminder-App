@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/forgotpassword.dart';
+import 'package:flutter_application_1/pages/profile.dart';
 import 'package:flutter_application_1/pages/home.dart';
 import 'package:flutter_application_1/pages/newaccount.dart';
 import 'package:flutter_application_1/theme.dart';
@@ -40,6 +42,7 @@ class _LoginDemoState extends State<LoginDemo> {
           textAlign: TextAlign.center,
         )),
         backgroundColor: Color(0xFF83CBC8),
+
         automaticallyImplyLeading: true,
       ),
       body: SingleChildScrollView(
@@ -56,7 +59,9 @@ class _LoginDemoState extends State<LoginDemo> {
                         borderRadius: BorderRadius.circular(50.0)),*/
                     child: Image.asset(
                   'assets/logo.png',
-                  width: 115,
+
+                  width: 215,
+
                 )),
               ),
             ),
@@ -93,7 +98,7 @@ class _LoginDemoState extends State<LoginDemo> {
               child: TextButton(
                 onPressed: () {
                   Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => PswReset()));
+                      context, MaterialPageRoute(builder: (_) => UserProfile()));
                 },
                 child: Text(
                   'Forgot Password',
