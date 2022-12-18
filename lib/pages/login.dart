@@ -41,7 +41,7 @@ class _LoginDemoState extends State<LoginDemo> {
           "Login Page",
           textAlign: TextAlign.center,
         )),
-        backgroundColor: Color(0xFF83CBC8),
+        backgroundColor: Color(0xff003049),
 
         automaticallyImplyLeading: true,
       ),
@@ -102,7 +102,7 @@ class _LoginDemoState extends State<LoginDemo> {
                 },
                 child: Text(
                   'Forgot Password',
-                  style: TextStyle(color: MyColors.LapisLazuli, fontSize: 15),
+                  style: TextStyle(color: Color(0xff003049), fontSize: 15),
                 ),
               ),
             ),
@@ -110,7 +110,7 @@ class _LoginDemoState extends State<LoginDemo> {
               width: MediaQuery.of(context).size.width - 100,
               height: 50,
               decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 102, 138, 174),
+                  color: Color(0xff003049),
                   borderRadius: BorderRadius.circular(20)),
               child: TextButton(
                 onPressed: () {
@@ -122,6 +122,7 @@ class _LoginDemoState extends State<LoginDemo> {
                 child: Text(
                   'Login',
                   style: TextStyle(color: Colors.white, fontSize: 20),
+                  
                 ),
               ),
             ),
@@ -136,7 +137,7 @@ class _LoginDemoState extends State<LoginDemo> {
                     },
                     child: Text(
                       "Create Account",
-                      style: TextStyle(color: MyColors.LapisLazuli),
+                      style: TextStyle(color: Color(0xff003049)),
                     )),
                 Padding(
                   padding: const EdgeInsets.only(
