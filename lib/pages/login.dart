@@ -98,7 +98,7 @@ class _LoginDemoState extends State<LoginDemo> {
               child: TextButton(
                 onPressed: () {
                   Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => UserProfile()));
+                      context, MaterialPageRoute(builder: (_) => profile()));
                 },
                 child: Text(
                   'Forgot Password',
