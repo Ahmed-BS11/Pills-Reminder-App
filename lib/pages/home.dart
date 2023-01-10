@@ -1,5 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/theme.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_application_1/network_utils/api.dart';
+import 'dart:developer';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_application_1/widgets/Microcard.dart';
 import 'package:flutter_application_1/widgets/pagefirst.dart';
 import 'package:flutter_application_1/widgets/customcard.dart';
@@ -16,8 +22,11 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+
+ String data="";
   int value = 5;
-  List<String> pills = ['pill 1', 'pill 2', 'pill 3'];
+//  List<String> pills = getPills();
   List<String> description = ['for headache', 'for stomach', 'illnes'];
   List<String> theicons = [
     'drug.png',
@@ -29,6 +38,15 @@ class _HomeState extends State<Home> {
 
   DateTime _selectedDay =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+
+
+  @override
+  void initState() {
+    super.initState();
+    getPills();
+    
+  }
+
   @override
   Widget build(BuildContext context) {
     return PageFirstLayout(
@@ -80,6 +98,7 @@ class _HomeState extends State<Home> {
             SizedBox(
               height: 50,
             ),
+            Text(data),
             Column(
               children: [
                 if (value == 0) ...[
@@ -89,7 +108,7 @@ class _HomeState extends State<Home> {
                     MicroCard(
                       id: i,
                       idshape: i + 1,
-                      name: pills[i],
+                      name: "pills[i]",
                       description: description[i],
                     ),
                 ], /*
@@ -154,4 +173,29 @@ class _HomeState extends State<Home> {
           ]),
         ));
   }
+
+  getPills() async {
+  // Make a GET request to the server
+
+  var response = await Network().getData("pills");
+  var body=json.decode(response.body);
+  data=body.toString()!;
 }
+}
+/*void getPills() async {
+    String url = 'http://172.0.0.1:8000/api/pills/';
+    http.Response response = await http.get(url);
+    String val = response.body;
+    List<dynamic> data = jsonDecode(val);
+    setState(() {
+      data.forEach((value) {
+        bookList.add(value);
+        print(bookList);
+      });
+    });
+
+    }
+*/
+
+
+
