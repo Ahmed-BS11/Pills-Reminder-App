@@ -24,7 +24,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
 
- String data="";
+ var data=[];
   int value = 5;
 //  List<String> pills = getPills();
   List<String> description = ['for headache', 'for stomach', 'illnes'];
@@ -98,8 +98,12 @@ class _HomeState extends State<Home> {
             SizedBox(
               height: 50,
             ),
-            Text(data),
             Column(
+              children: data.map(((e) {
+                return Text(e["name"]);
+              })).toList(),
+            )
+            ,Column(
               children: [
                 if (value == 0) ...[
                   Center(child: Text("no reminders today")),
@@ -174,12 +178,26 @@ class _HomeState extends State<Home> {
         ));
   }
 
-  getPills() async {
+ // Future getPills() async {
   // Make a GET request to the server
 
-  var response = await Network().getData("pills");
+  //var response = await Network().getData("/pills");
+  //var body=json.decode(response.body);
+  //data=body.toString();
+
+void getPills() async {
+    final String token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc1ODg3MTY3LCJpYXQiOjE2NzMyOTUxNjcsImp0aSI6IjMwZjQ4ZmMwZmJjYjRiZjU5MDAxNDFlNzljM2I1NjlkIiwidXNlcl9pZCI6MX0.8GjOdaRPPclMK6lf0SB7FCfAXJmFjcU2qHVf0m5rEW8';
+
+  final Uri url = Uri.parse('http://127.0.0.1:8000/api/pills');
+  final response = await http.get(
+    url,
+    headers: {'Authorization': 'Bearer $token'},
+  );
   var body=json.decode(response.body);
-  data=body.toString()!;
+  setState(() {
+     data=body;
+  });
+
 }
 }
 /*void getPills() async {
