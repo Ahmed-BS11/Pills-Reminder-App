@@ -27,6 +27,10 @@ class _HomeState extends State<Home> {
  var data=[];
   int value = 5;
 //  List<String> pills = getPills();
+  List<String> names=[];
+  List<String> des=[];
+  List<int> ids=[];
+  List<int> idshapes=[];
   List<String> description = ['for headache', 'for stomach', 'illnes'];
   List<String> theicons = [
     'drug.png',
@@ -100,7 +104,11 @@ class _HomeState extends State<Home> {
             ),
             Column(
               children: data.map(((e) {
-                return Text(e["name"]);
+                ids.add(e["id"]);
+                des.add(e["description"]);
+                idshapes.add(e["id_Shape"]);
+                names.add(e["name"]);
+                return Text("");
               })).toList(),
             )
             ,Column(
@@ -108,12 +116,12 @@ class _HomeState extends State<Home> {
                 if (value == 0) ...[
                   Center(child: Text("no reminders today")),
                 ] else ...[
-                  for (int i = 0; i < 3; i++)
+                  for (int i = 0; i < ids.length; i++)
                     MicroCard(
-                      id: i,
-                      idshape: i + 1,
-                      name: "pills[i]",
-                      description: description[i],
+                      id: ids[i],
+                      idshape: idshapes[i],
+                      name: names[i],
+                      description: des[i],
                     ),
                 ], /*
                     Card(
@@ -200,7 +208,32 @@ void getPills() async {
 
 }
 }
-/*void getPills() async {
+/*
+void PostPill() async {
+    final String token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc1ODg3MTY3LCJpYXQiOjE2NzMyOTUxNjcsImp0aSI6IjMwZjQ4ZmMwZmJjYjRiZjU5MDAxNDFlNzljM2I1NjlkIiwidXNlcl9pZCI6MX0.8GjOdaRPPclMK6lf0SB7FCfAXJmFjcU2qHVf0m5rEW8';
+
+  final Uri url = Uri.parse('http://127.0.0.1:8000/api/pills/create');
+  final response = await http.post(
+    url,
+    headers: {
+      'Authorization': 'Bearer $token'
+     },
+    body: {
+        
+          "name": 'ahmed_Dwe',   
+          "dose": '3',
+          "id_Shape": '2',
+          "description": 'for pshyco',
+          "refillOn": "10"
+        }
+  );
+  var body=json.decode(response.body);
+   setState(() {
+      data=body;
+  });
+}
+
+void getPills() async {
     String url = 'http://172.0.0.1:8000/api/pills/';
     http.Response response = await http.get(url);
     String val = response.body;
