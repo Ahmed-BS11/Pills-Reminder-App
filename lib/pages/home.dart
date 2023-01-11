@@ -1,5 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/theme.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_application_1/network_utils/api.dart';
+import 'dart:developer';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_application_1/widgets/Microcard.dart';
 import 'package:flutter_application_1/widgets/pagefirst.dart';
 import 'package:flutter_application_1/widgets/customcard.dart';
@@ -16,8 +22,11 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+
+ var data=[];
   int value = 5;
-  List<String> pills = ['pill 1', 'pill 2', 'pill 3'];
+//  List<String> pills = getPills();
   List<String> description = ['for headache', 'for stomach', 'illnes'];
   List<String> theicons = [
     'drug.png',
@@ -29,6 +38,15 @@ class _HomeState extends State<Home> {
 
   DateTime _selectedDay =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+
+
+  @override
+  void initState() {
+    super.initState();
+    getPills();
+    
+  }
+
   @override
   Widget build(BuildContext context) {
     return PageFirstLayout(
@@ -81,6 +99,11 @@ class _HomeState extends State<Home> {
               height: 50,
             ),
             Column(
+              children: data.map(((e) {
+                return Text(e["name"]);
+              })).toList(),
+            )
+            ,Column(
               children: [
                 if (value == 0) ...[
                   Center(child: Text("no reminders today")),
@@ -89,7 +112,7 @@ class _HomeState extends State<Home> {
                     MicroCard(
                       id: i,
                       idshape: i + 1,
-                      name: pills[i],
+                      name: "pills[i]",
                       description: description[i],
                     ),
                 ], /*
@@ -154,4 +177,43 @@ class _HomeState extends State<Home> {
           ]),
         ));
   }
+
+ // Future getPills() async {
+  // Make a GET request to the server
+
+  //var response = await Network().getData("/pills");
+  //var body=json.decode(response.body);
+  //data=body.toString();
+
+void getPills() async {
+    final String token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc1ODg3MTY3LCJpYXQiOjE2NzMyOTUxNjcsImp0aSI6IjMwZjQ4ZmMwZmJjYjRiZjU5MDAxNDFlNzljM2I1NjlkIiwidXNlcl9pZCI6MX0.8GjOdaRPPclMK6lf0SB7FCfAXJmFjcU2qHVf0m5rEW8';
+
+  final Uri url = Uri.parse('http://127.0.0.1:8000/api/pills');
+  final response = await http.get(
+    url,
+    headers: {'Authorization': 'Bearer $token'},
+  );
+  var body=json.decode(response.body);
+  setState(() {
+     data=body;
+  });
+
 }
+}
+/*void getPills() async {
+    String url = 'http://172.0.0.1:8000/api/pills/';
+    http.Response response = await http.get(url);
+    String val = response.body;
+    List<dynamic> data = jsonDecode(val);
+    setState(() {
+      data.forEach((value) {
+        bookList.add(value);
+        print(bookList);
+      });
+    });
+
+    }
+*/
+
+
+
