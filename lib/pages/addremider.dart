@@ -17,6 +17,7 @@ class AddRemider extends StatefulWidget {
 class _AddRemiderState extends State<AddRemider> {
   bool repeat = false;
   bool isEveryday = false;
+  List<int> days = [];
 
   void _showTimepicker() {
     showTimePicker(context: context, initialTime: TimeOfDay.now());
@@ -101,6 +102,17 @@ class _AddRemiderState extends State<AddRemider> {
                     setState(() {
                       this.isEveryday = value ?? false;
                     });
+                     if(isEveryday){
+                              setState(() {
+                                days = [1,2,3,4,5,6,7];
+                              });
+                            }
+                            else{
+                              setState(() {
+                                days.clear();
+                              });
+                            }
+                            
                   }),
             ),
           ],

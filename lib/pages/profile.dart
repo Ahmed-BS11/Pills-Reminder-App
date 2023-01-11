@@ -33,6 +33,7 @@ class UserProfile extends State<MyProfilePage> {
     TextEditingController email = TextEditingController();
     TextEditingController password = TextEditingController();
     return Scaffold(
+      backgroundColor:Color.fromRGBO(193, 229, 227, 1),
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         padding: EdgeInsets.only(top: 50.0),
@@ -42,7 +43,7 @@ class UserProfile extends State<MyProfilePage> {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             decoration: BoxDecoration(
-              color: Color(0xffeae2b7),
+              color: Colors.white,
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(40), topRight: Radius.circular(40)),
             ),
@@ -109,30 +110,44 @@ class UserProfile extends State<MyProfilePage> {
                               Icon(Icons.update_outlined),
                               Text('Update')
                             ],
+                            
                           ),
-                          style: ElevatedButton.styleFrom(
-                              primary: Color(0xff003049),
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 35.0, vertical: 20.0),
-                              textStyle: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold)),
-                        ),
+                          style: ButtonStyle(
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0),
+                                  //side: BorderSide(color: Colors.red)),
+                                )
+                          ),),
+                          
+                      ),
                       ),
                       Container(
                         margin: const EdgeInsets.only(top: 25.0),
                         child: ElevatedButton(
                           onPressed: () {},
                           child: Column(
-                            children: [Icon(Icons.exit_to_app), Text('LogOut')],
+                            children: [Icon(Icons.exit_to_app), Text('LogOut',style:  TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.normal)),],
                           ),
-                          style: ElevatedButton.styleFrom(
-                              primary: Color.fromARGB(255, 236, 15, 15),
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 15.0, vertical: 10.0),
+                          style: ButtonStyle(
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18.0),
+                                  //side: BorderSide(color: Colors.red)),
+                                )
+                          ),),
+    
+  
+
+                              /*primary: Color.fromARGB(255, 119, 161, 202),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                              padding: EdgeInsets.all(10),
+                                  
                               textStyle: TextStyle(
-                                  fontSize: 22, fontWeight: FontWeight.bold)),
-                        ),
-                      )
+                                  fontSize: 18, fontWeight: FontWeight.normal)),*/
+                        
+                      ),
+                      ),
                     ],
                   ),
                 ),
