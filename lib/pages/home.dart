@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/theme.dart';
@@ -22,8 +23,10 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
-
+  
+  
+  String token="";
+  String token1="";
  var data=[];
   int value = 5;
 //  List<String> pills = getPills();
@@ -47,7 +50,9 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+    _checkToken();
     getPills();
+    
     
   }
 
@@ -194,12 +199,16 @@ class _HomeState extends State<Home> {
   //data=body.toString();
 
 void getPills() async {
-    final String token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc1ODg3MTY3LCJpYXQiOjE2NzMyOTUxNjcsImp0aSI6IjMwZjQ4ZmMwZmJjYjRiZjU5MDAxNDFlNzljM2I1NjlkIiwidXNlcl9pZCI6MX0.8GjOdaRPPclMK6lf0SB7FCfAXJmFjcU2qHVf0m5rEW8';
-
+  final String token1 = '$token';
+  print(token1);
+  
   final Uri url = Uri.parse('http://127.0.0.1:8000/api/pills');
   final response = await http.get(
     url,
-    headers: {'Authorization': 'Bearer $token'},
+    headers: {'Content-type': 'application/json',
+        'Accept': 'application/json',
+        HttpHeaders.authorizationHeader: 'Bearer $token1'
+},
   );
   var body=json.decode(response.body);
   setState(() {
@@ -207,6 +216,12 @@ void getPills() async {
   });
 
 }
+_checkToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    token = prefs.getString('token');
+    print(token);
+    }
+
 }
 /*
 void PostPill() async {

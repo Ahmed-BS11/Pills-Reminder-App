@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -5,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/forgotpassword.dart';
 import 'package:flutter_application_1/pages/profile.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_application_1/pages/home.dart';
 import 'package:flutter_application_1/pages/newaccount.dart';
 import 'package:flutter_application_1/theme.dart';
@@ -21,9 +24,14 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  
+class MyApp extends StatefulWidget {
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -34,12 +42,61 @@ class MyApp extends StatelessWidget {
 
 class LoginDemo extends StatefulWidget {
   @override
+  
   _LoginDemoState createState() => _LoginDemoState();
 }
 
 class _LoginDemoState extends State<LoginDemo> {
-   var data=[];
-   String token='';
+  void initState() {
+    super.initState();
+    _checkToken();}
+  _checkToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString('token');
+    print(token);
+    if (token != null) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Home()),
+      );
+    }
+  }
+  /*void didChangeDependencies() async {
+    super.didChangeDependencies();
+    final prefs = await SharedPreferences.getInstance();
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    token = localStorage.getString("token");
+    int iii=0;
+    setState(() {
+      // ignore: curly_braces_in_flow_control_structures
+      if (token != null)
+        [
+          SchedulerBinding.instance.addPostFrameCallback((_) {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (_) => Home()));
+          })
+        ];
+      else
+        [
+          //iii=1,
+          if(iii == 0){
+            SchedulerBinding.instance.addPostFrameCallback((_) {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (_) => LoginDemo()));
+                iii=1;
+                print(iii);
+          })
+          }
+          
+        ];
+      print(token);
+    });
+    // ignore: unnecessary_null_comparison
+  }*/
+
+  var data = [];
+  String token = '';
+
   String email = "";
   String password = "";
   @override
@@ -128,10 +185,10 @@ class _LoginDemoState extends State<LoginDemo> {
                   borderRadius: BorderRadius.circular(20)),
               child: TextButton(
                 onPressed: () {
-                  loginUser(email,password);
+                  loginUser(email, password);
                   print(data);
                   Navigator.push(
-                        context, MaterialPageRoute(builder: (_) => Home()));
+                      context, MaterialPageRoute(builder: (_) => Home()));
                   /*if (isValidEmail(email)) {
                     
                     
@@ -156,7 +213,8 @@ class _LoginDemoState extends State<LoginDemo> {
                   /*Navigator.of(context)
                       .push(MaterialPageRoute(builder: (context) {
                     return Home();
-                  }))*/;
+                  }))*/
+                  ;
                 },
                 child: Text(
                   'Login',
@@ -167,10 +225,10 @@ class _LoginDemoState extends State<LoginDemo> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-              //  Column(
-             // children: data.map(((e) {
-             //   return Text(e);
-            //  })).toList()),
+                //  Column(
+                // children: data.map(((e) {
+                //   return Text(e);
+                //  })).toList()),
                 Text('New User?'),
                 TextButton(
                     onPressed: () {
@@ -194,23 +252,22 @@ class _LoginDemoState extends State<LoginDemo> {
       ),
     );
   }
+
   void loginUser(email, password) async {
-  final Uri url = Uri.parse('http://127.0.0.1:8000/api/users/login/');
-  final bodyy = jsonEncode({ 'username': email, 'password': password });
-  print('heyy');
-  final response = await http.post(url,
-      headers: {HttpHeaders.contentTypeHeader: "application/json"},
+    final Uri url = Uri.parse('http://127.0.0.1:8000/api/users/login/');
+    final bodyy = jsonEncode({'username': email, 'password': password});
+    final response = await http.post(url,
+        headers: {HttpHeaders.contentTypeHeader: "application/json"},
+        body: bodyy);
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
 
-   body: 
-    bodyy
-  
-   );
-      var bodyyy=json.decode(response.body);
-      print(bodyyy);
-   setState(() {
+    var bodyyy = json.decode(response.body);
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('token', bodyyy["token"]);
 
-  });   
-}
+    //print(token);
+    setState(() {});
+  }
 }
 
 bool isValidEmail(String email) {
@@ -219,6 +276,4 @@ bool isValidEmail(String email) {
       r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$");
   return emailRegEx.hasMatch(email);
 }
-
-
 
