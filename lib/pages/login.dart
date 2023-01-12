@@ -1,6 +1,11 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/forgotpassword.dart';
 import 'package:flutter_application_1/pages/profile.dart';
+import 'package:http/http.dart' as http;
+
 import 'package:flutter_application_1/pages/home.dart';
 import 'package:flutter_application_1/pages/newaccount.dart';
 import 'package:flutter_application_1/theme.dart';
@@ -17,6 +22,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -32,6 +38,10 @@ class LoginDemo extends StatefulWidget {
 }
 
 class _LoginDemoState extends State<LoginDemo> {
+   var data=[];
+   String token='';
+  String email = "";
+  String password = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +52,6 @@ class _LoginDemoState extends State<LoginDemo> {
           textAlign: TextAlign.center,
         )),
         backgroundColor: Color(0xff003049),
-
         automaticallyImplyLeading: true,
       ),
       body: SingleChildScrollView(
@@ -59,9 +68,7 @@ class _LoginDemoState extends State<LoginDemo> {
                         borderRadius: BorderRadius.circular(50.0)),*/
                     child: Image.asset(
                   'assets/logo.png',
-
                   width: 215,
-
                 )),
               ),
             ),
@@ -72,6 +79,11 @@ class _LoginDemoState extends State<LoginDemo> {
               //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
               padding: EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
+                onChanged: (value) {
+                  setState(() {
+                    email = value;
+                  });
+                },
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Email',
@@ -84,6 +96,11 @@ class _LoginDemoState extends State<LoginDemo> {
               //padding: EdgeInsets.symmetric(horizontal: 15),
               child: TextField(
                 obscureText: true,
+                onChanged: (value) {
+                  setState(() {
+                    password = value;
+                  });
+                },
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Password',
@@ -96,10 +113,7 @@ class _LoginDemoState extends State<LoginDemo> {
                 top: 10,
               ),
               child: TextButton(
-                onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => PswReset()));
-                },
+                onPressed: () {},
                 child: Text(
                   'Forgot Password',
                   style: TextStyle(color: Color(0xff003049), fontSize: 15),
@@ -114,21 +128,49 @@ class _LoginDemoState extends State<LoginDemo> {
                   borderRadius: BorderRadius.circular(20)),
               child: TextButton(
                 onPressed: () {
-                  Navigator.of(context)
+                  loginUser(email,password);
+                  print(data);
+                  Navigator.push(
+                        context, MaterialPageRoute(builder: (_) => Home()));
+                  /*if (isValidEmail(email)) {
+                    
+                    
+                    print(email);
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (_) => Home()));
+                  } else {
+                    
+                    print('heyyy');
+                    print(email);
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: Text("Reset Your Email Please"),
+                          content: Text("An error has occurred"),
+                        );
+                      },
+                    );
+                  }*/
+
+                  /*Navigator.of(context)
                       .push(MaterialPageRoute(builder: (context) {
                     return Home();
-                  }));
+                  }))*/;
                 },
                 child: Text(
                   'Login',
                   style: TextStyle(color: Colors.white, fontSize: 20),
-                  
                 ),
               ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+              //  Column(
+             // children: data.map(((e) {
+             //   return Text(e);
+            //  })).toList()),
                 Text('New User?'),
                 TextButton(
                     onPressed: () {
@@ -152,4 +194,31 @@ class _LoginDemoState extends State<LoginDemo> {
       ),
     );
   }
+  void loginUser(email, password) async {
+  final Uri url = Uri.parse('http://127.0.0.1:8000/api/users/login/');
+  final bodyy = jsonEncode({ 'username': email, 'password': password });
+  print('heyy');
+  final response = await http.post(url,
+      headers: {HttpHeaders.contentTypeHeader: "application/json"},
+
+   body: 
+    bodyy
+  
+   );
+      var bodyyy=json.decode(response.body);
+      print(bodyyy);
+   setState(() {
+
+  });   
 }
+}
+
+bool isValidEmail(String email) {
+  //Email validation expression
+  final emailRegEx = RegExp(
+      r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$");
+  return emailRegEx.hasMatch(email);
+}
+
+
+
