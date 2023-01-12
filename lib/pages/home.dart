@@ -25,9 +25,10 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   
-  
-  String token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc2MTI1MDM5LCJpYXQiOjE2NzM1MzMwMzksImp0aSI6ImRkMGVlMzgwYmFkMDQ4ZDU4MzIxNzlkY2FjZmMxODc3IiwidXNlcl9pZCI6MX0.n_r3LOdv7I3iEZzzyXE91woyw_24k0yNlOJPUTfidQs";
-  String token1="";
+
+  //String token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc2MTI1MDM5LCJpYXQiOjE2NzM1MzMwMzksImp0aSI6ImRkMGVlMzgwYmFkMDQ4ZDU4MzIxNzlkY2FjZmMxODc3IiwidXNlcl9pZCI6MX0.n_r3LOdv7I3iEZzzyXE91woyw_24k0yNlOJPUTfidQs";
+  var token1;
+  var token;
  var data=[];
   int value = 5;
 //  List<String> pills = getPills();
@@ -35,26 +36,29 @@ class _HomeState extends State<Home> {
   List<String> des=[];
   List<int> ids=[];
   List<int> idshapes=[];
-  List<String> description = ['for headache', 'for stomach', 'illnes'];
-  List<String> theicons = [
-    'drug.png',
-    'inhaler.png',
-    'pill.png',
-    'pill_rounded.png',
-    'syringe.png',
-  ];
+
 
   DateTime _selectedDay =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
 
   @override
-  void initState() {
+   void initState() {
+    getData();
     super.initState();
-    _checkToken();
-    getPills();
-    
-    
+  }
+
+  _checkToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    token = prefs.getString('token');
+    token1= token;
+    print(token);
+  }
+
+  getData()async
+  {
+    await _checkToken();
+    await getPills();
   }
 
   @override
@@ -199,7 +203,7 @@ class _HomeState extends State<Home> {
   //var body=json.decode(response.body);
   //data=body.toString();
 
-void getPills() async {
+ getPills() async {
   
   final Uri url = Uri.parse('http://127.0.0.1:8000/api/pills');
   final response = await http.get(
@@ -215,14 +219,15 @@ void getPills() async {
   });
 
 }
-_checkToken() async {
+
+/*_checkToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     token = prefs.getString('token');
     print(token);
     }
 
 }
-/*
+
 void PostPill() async {
     final String token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc1ODg3MTY3LCJpYXQiOjE2NzMyOTUxNjcsImp0aSI6IjMwZjQ4ZmMwZmJjYjRiZjU5MDAxNDFlNzljM2I1NjlkIiwidXNlcl9pZCI6MX0.8GjOdaRPPclMK6lf0SB7FCfAXJmFjcU2qHVf0m5rEW8';
 
@@ -263,4 +268,4 @@ void getPills() async {
 */
 
 
-
+}

@@ -7,7 +7,7 @@ import Foundation
 
 import flutter_secure_storage_macos
 import path_provider_macos
-import shared_preferences_macos
+import shared_preferences_foundation
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   FlutterSecureStorageMacosPlugin.register(with: registry.registrar(forPlugin: "FlutterSecureStorageMacosPlugin"))

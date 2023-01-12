@@ -4,7 +4,7 @@ from MedicalApi.views import reminder_views as views
 
 urlpatterns = [
     path('create/', views.addReminder, name="reminder-create"),
-    path('', views.getAllReminders, name="Allreminders"),
+    path('', views.getReminders, name="Allreminders"),
 
     path('<str:pk>/', views.getReminderByDay, name="reminders"),
     path('update/<str:pk>/', views.updateReminder, name="reminder-update"),

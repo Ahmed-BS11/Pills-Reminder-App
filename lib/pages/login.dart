@@ -48,18 +48,20 @@ class LoginDemo extends StatefulWidget {
 
 class _LoginDemoState extends State<LoginDemo> {
   void initState() {
+    _checkToken();
     super.initState();
-    _checkToken();}
+  }
   _checkToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String token = prefs.getString('token');
-    print(token);
-    if (token != null) {
+    var token = prefs.getString('token');
+    // print(token);
+    if (token!=null) {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => Home()),
       );
     }
+
   }
   /*void didChangeDependencies() async {
     super.didChangeDependencies();
@@ -184,8 +186,8 @@ class _LoginDemoState extends State<LoginDemo> {
                   color: Color(0xff003049),
                   borderRadius: BorderRadius.circular(20)),
               child: TextButton(
-                onPressed: () {
-                  loginUser(email, password);
+                onPressed: () async{
+                  await loginUser(email, password);
                   print(data);
                   Navigator.push(
                       context, MaterialPageRoute(builder: (_) => Home()));
@@ -253,7 +255,7 @@ class _LoginDemoState extends State<LoginDemo> {
     );
   }
 
-  void loginUser(email, password) async {
+   loginUser(email, password) async {
     final Uri url = Uri.parse('http://127.0.0.1:8000/api/users/login/');
     final bodyy = jsonEncode({'username': email, 'password': password});
     final response = await http.post(url,
@@ -266,7 +268,7 @@ class _LoginDemoState extends State<LoginDemo> {
     prefs.setString('token', bodyyy["token"]);
 
     //print(token);
-    setState(() {});
+    //setState(() {});
   }
 }
 

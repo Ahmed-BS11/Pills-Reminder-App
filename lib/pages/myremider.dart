@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
-
+import 'package:flutter_application_1/widgets/Remindercard.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -10,29 +11,27 @@ import 'package:flutter_application_1/pages/addremider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter_application_1/widgets/datecard.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyRemider extends StatefulWidget {
-  /*const MyRemider({super.key});*/
+  const MyRemider({super.key});
 
   @override
   State<MyRemider> createState() => _MyRemiderState();
 }
 
 class _MyRemiderState extends State<MyRemider> {
-  var data=[];
+  var data = [];
   @override
   void initState() {
-    super.initState();
     getReminders();
-    print("heyy");
+    super.initState();
   }
 
-  
   CalendarFormat _calendarFormat = CalendarFormat.week;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
 
-  get http => null;
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
     if (!isSameDay(_selectedDay, selectedDay)) {
       setState(() {
@@ -94,11 +93,8 @@ class _MyRemiderState extends State<MyRemider> {
                 },
               ),
             ),
-            Column(
-              children: data.map(((e) {
-                return Text(e);
-              })).toList(),
-            )
+            Text(data.toString()),
+            ReminderCard(id:4, name: "ouss", description: "description", pickedTime: "15-13-1210")
           ],
         ),
         containerChild: Row(
@@ -109,19 +105,21 @@ class _MyRemiderState extends State<MyRemider> {
   void getReminders() async {
     String token =
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc2MTI1MDM5LCJpYXQiOjE2NzM1MzMwMzksImp0aSI6ImRkMGVlMzgwYmFkMDQ4ZDU4MzIxNzlkY2FjZmMxODc3IiwidXNlcl9pZCI6MX0.n_r3LOdv7I3iEZzzyXE91woyw_24k0yNlOJPUTfidQs";
-    final Uri url = await Uri.parse('http://127.0.0.1:8000/api/reminders/');
+    final Uri url = Uri.parse('http://127.0.0.1:8000/api/reminders/');
+
     final response = await http.get(
       url,
       headers: {'Content-type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': 'Bearer $token'
-},
+          'Accept': 'application/json',
+          HttpHeaders.authorizationHeader: 'Bearer $token'
+  },
     );
-    print(response);
-    var Rbody = json.decode(response.body);
-    //print(Rbody[0]);
+    var body=json.decode(response.body);
     setState(() {
-      data = Rbody;
+      data=body;
     });
+
+      
+    
   }
 }

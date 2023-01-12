@@ -21,6 +21,11 @@ class MicroCard extends StatelessWidget {
     'pill.png',
     'pill_rounded.png',
     'syringe.png',
+    'drug.png',
+    'inhaler.png',
+    'pill.png',
+    'pill_rounded.png',
+    'syringe.png',
   ];
 
   MicroCard(
