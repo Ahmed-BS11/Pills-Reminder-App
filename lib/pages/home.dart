@@ -26,7 +26,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   
   
-  String token="";
+  String token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc2MTI1MDM5LCJpYXQiOjE2NzM1MzMwMzksImp0aSI6ImRkMGVlMzgwYmFkMDQ4ZDU4MzIxNzlkY2FjZmMxODc3IiwidXNlcl9pZCI6MX0.n_r3LOdv7I3iEZzzyXE91woyw_24k0yNlOJPUTfidQs";
   String token1="";
  var data=[];
   int value = 5;

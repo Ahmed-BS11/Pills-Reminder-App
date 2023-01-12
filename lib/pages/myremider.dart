@@ -19,12 +19,15 @@ class MyRemider extends StatefulWidget {
 }
 
 class _MyRemiderState extends State<MyRemider> {
+  var data=[];
   @override
   void initState() {
     super.initState();
     getReminders();
+    print("heyy");
   }
-  var data=[];
+
+  
   CalendarFormat _calendarFormat = CalendarFormat.week;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
@@ -90,30 +93,35 @@ class _MyRemiderState extends State<MyRemider> {
                   return isSameDay(_selectedDay, day);
                 },
               ),
+            ),
+            Column(
+              children: data.map(((e) {
+                return Text(e);
+              })).toList(),
             )
           ],
         ),
         containerChild: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
         ));
-  
   }
-  void getReminders() async {
-      String token =  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc1ODg3MTY3LCJpYXQiOjE2NzMyOTUxNjcsImp0aSI6IjMwZjQ4ZmMwZmJjYjRiZjU5MDAxNDFlNzljM2I1NjlkIiwidXNlcl9pZCI6MX0.8GjOdaRPPclMK6lf0SB7FCfAXJmFjcU2qHVf0m5rEW8";
 
-      final Uri url = Uri.parse('http://127.0.0.1:8000/api/reminders');
-      final response = await http.get(
-        url,
-        headers: {
-          'Content-type': 'application/json',
-          'Accept': 'application/json',
-          HttpHeaders.authorizationHeader: 'Bearer $token'
-        },
-      );
-      var Rbody = json.decode(response.body);
-      print(Rbody[0]);
-      setState(() {
-        data=Rbody;
-  });
-    }
+  void getReminders() async {
+    String token =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc2MTI1MDM5LCJpYXQiOjE2NzM1MzMwMzksImp0aSI6ImRkMGVlMzgwYmFkMDQ4ZDU4MzIxNzlkY2FjZmMxODc3IiwidXNlcl9pZCI6MX0.n_r3LOdv7I3iEZzzyXE91woyw_24k0yNlOJPUTfidQs";
+    final Uri url = await Uri.parse('http://127.0.0.1:8000/api/reminders/');
+    final response = await http.get(
+      url,
+      headers: {'Content-type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token'
+},
+    );
+    print(response);
+    var Rbody = json.decode(response.body);
+    //print(Rbody[0]);
+    setState(() {
+      data = Rbody;
+    });
+  }
 }
