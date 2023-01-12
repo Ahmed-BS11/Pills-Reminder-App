@@ -14,6 +14,7 @@ import 'package:flutter_application_1/widgets/curved.dart';
 import 'package:flutter_application_1/widgets/datecard.dart';
 import 'package:flutter_application_1/pages/addmed.dart';
 import 'package:flutter_application_1/pages/myremider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatefulWidget {
   //const Home ({super.key});
@@ -199,15 +200,13 @@ class _HomeState extends State<Home> {
   //data=body.toString();
 
 void getPills() async {
-  final String token1 = '$token';
-  print(token1);
   
   final Uri url = Uri.parse('http://127.0.0.1:8000/api/pills');
   final response = await http.get(
     url,
     headers: {'Content-type': 'application/json',
         'Accept': 'application/json',
-        HttpHeaders.authorizationHeader: 'Bearer $token1'
+        HttpHeaders.authorizationHeader: 'Bearer $token'
 },
   );
   var body=json.decode(response.body);
