@@ -104,38 +104,43 @@ class _MyRemiderState extends State<MyRemider> {
               ),
               //Text(data.toString()),
               
-              Column(
-                children: data.map(((e) {
-                  Rmids.add(e["_id"]);
-                  des.add(e["pill"]["description"]);
-                  Rmnames.add(e["pill"]["name"]);
-                  pickedtimes.add(e["pickedTime"]);
-                  Text(Rmnames.toString());
-                  return Text("");
-                  
-                })).toList(),
-                
-              ),
-              Column(
-                children: [
-                  if (value == 0) ...[
-                    Center(child: Text("no reminders today")),
-                  ] else ...[
-                    for (int i = 0; i < Rmids.length; i++)
-                      ReminderCard(
-                        id: Rmids[i],
-                        pickedTime: pickedtimes[i],
-                        name: Rmnames[i],
-                        description: des[i],
-                      ),
-                  ],
-                ],
-              ),
+             
             ],
           ),
-          containerChild: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-          )),
+          containerChild: Container(
+            child:Wrap(
+              children: [
+                 Column(
+                  children: data.map(((e) {
+                    Rmids.add(e["_id"]);
+                    des.add(e["pill"]["description"]);
+                    Rmnames.add(e["pill"]["name"]);
+                    pickedtimes.add(e["pickedTime"]);
+                    Text(Rmnames.toString());
+                    return Text("");
+                    
+                  })).toList(),
+                  
+                ),
+                Column(
+                  children: [
+                    if (value == 0) ...[
+                      Center(child: Text("no reminders today")),
+                    ] else ...[
+                      for (int i = 0; i < Rmids.length; i++)
+                        ReminderCard(
+                          id: Rmids[i],
+                          pickedTime: pickedtimes[i],
+                          name: Rmnames[i],
+                          description: des[i],
+                        ),
+                    ],
+                  ],
+                ),
+              ],),
+            )
+            //crossAxisAlignment: CrossAxisAlignment.stretch,
+          ),
     );
   }
 

@@ -52,7 +52,7 @@ class ReminderCard extends StatelessWidget {
             children: <Widget>[
               ListTile(
                 leading: IconButton(
-                    onPressed: () {}, icon: const Icon(Icons.av_timer)),
+                    onPressed: () {}, icon: const Icon(Icons.access_time_rounded)),
                 title: Text(name),
                 subtitle: Text(description),
 
