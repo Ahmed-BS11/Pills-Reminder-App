@@ -21,6 +21,12 @@ class MyRemider extends StatefulWidget {
 }
 
 class _MyRemiderState extends State<MyRemider> {
+  List<String> Rmnames = [];
+  List<String> des = [];
+  List<int> Rmids = [];
+  List<String> pickedtimes = [];
+  int value = 5;
+
   var data = [];
   @override
   void initState() {
@@ -43,63 +49,94 @@ class _MyRemiderState extends State<MyRemider> {
 
   @override
   Widget build(BuildContext context) {
-    return PageFirstLayout(
-        appBarTitle: "My Reminders",
-        color: MyColors.Landing1,
-        appBarRight: IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) {
-                    return (AddRemider());
+    return Align(
+          alignment: Alignment.bottomCenter,
+
+      child: PageFirstLayout(
+          appBarTitle: "My Reminders",
+          color: MyColors.Landing1,
+          appBarRight: IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return (AddRemider());
+                    },
+                  ),
+                );
+              }),
+          topChild: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                child: TableCalendar(
+                  headerStyle: HeaderStyle(
+                    formatButtonShowsNext: false,
+                    titleTextStyle: Theme.of(context).textTheme.bodyText2!,
+                    formatButtonTextStyle: Theme.of(context).textTheme.overline!,
+                  ),
+                  availableCalendarFormats: const {
+                    CalendarFormat.month: 'Month',
+                    CalendarFormat.week: 'Week'
+                  },
+                  daysOfWeekStyle: DaysOfWeekStyle(
+                    weekdayStyle: Theme.of(context).textTheme.caption!,
+                    weekendStyle: Theme.of(context).textTheme.caption!,
+                  ),
+                  calendarStyle: CalendarStyle(
+                    selectedDecoration: BoxDecoration(
+                        color: MyColors.TealBlue, shape: BoxShape.circle),
+                    todayDecoration: BoxDecoration(
+                        color: MyColors.TealBlue.withOpacity(0.5),
+                        shape: BoxShape.circle),
+                  ),
+                  firstDay: DateTime.utc(2020, 1, 1),
+                  lastDay: DateTime.now().add(Duration(days: 7300)),
+                  focusedDay: _focusedDay,
+                  calendarFormat: _calendarFormat,
+                  onDaySelected: _onDaySelected,
+                  selectedDayPredicate: (day) {
+                    return isSameDay(_selectedDay, day);
                   },
                 ),
-              );
-            }),
-        topChild: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8.0),
-              child: TableCalendar(
-                headerStyle: HeaderStyle(
-                  formatButtonShowsNext: false,
-                  titleTextStyle: Theme.of(context).textTheme.bodyText2!,
-                  formatButtonTextStyle: Theme.of(context).textTheme.overline!,
-                ),
-                availableCalendarFormats: const {
-                  CalendarFormat.month: 'Month',
-                  CalendarFormat.week: 'Week'
-                },
-                daysOfWeekStyle: DaysOfWeekStyle(
-                  weekdayStyle: Theme.of(context).textTheme.caption!,
-                  weekendStyle: Theme.of(context).textTheme.caption!,
-                ),
-                calendarStyle: CalendarStyle(
-                  selectedDecoration: BoxDecoration(
-                      color: MyColors.TealBlue, shape: BoxShape.circle),
-                  todayDecoration: BoxDecoration(
-                      color: MyColors.TealBlue.withOpacity(0.5),
-                      shape: BoxShape.circle),
-                ),
-                firstDay: DateTime.utc(2020, 1, 1),
-                lastDay: DateTime.now().add(Duration(days: 7300)),
-                focusedDay: _focusedDay,
-                calendarFormat: _calendarFormat,
-                onDaySelected: _onDaySelected,
-                selectedDayPredicate: (day) {
-                  return isSameDay(_selectedDay, day);
-                },
               ),
-            ),
-            Text(data.toString()),
-            ReminderCard(id:4, name: "ouss", description: "description", pickedTime: "15-13-1210")
-          ],
-        ),
-        containerChild: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-        ));
+              //Text(data.toString()),
+              
+              Column(
+                children: data.map(((e) {
+                  Rmids.add(e["_id"]);
+                  des.add(e["pill"]["description"]);
+                  Rmnames.add(e["pill"]["name"]);
+                  pickedtimes.add(e["pickedTime"]);
+                  Text(Rmnames.toString());
+                  return Text("");
+                  
+                })).toList(),
+                
+              ),
+              Column(
+                children: [
+                  if (value == 0) ...[
+                    Center(child: Text("no reminders today")),
+                  ] else ...[
+                    for (int i = 0; i < Rmids.length; i++)
+                      ReminderCard(
+                        id: Rmids[i],
+                        pickedTime: pickedtimes[i],
+                        name: Rmnames[i],
+                        description: des[i],
+                      ),
+                  ],
+                ],
+              ),
+            ],
+          ),
+          containerChild: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+          )),
+    );
   }
 
   void getReminders() async {
@@ -109,17 +146,15 @@ class _MyRemiderState extends State<MyRemider> {
 
     final response = await http.get(
       url,
-      headers: {'Content-type': 'application/json',
-          'Accept': 'application/json',
-          HttpHeaders.authorizationHeader: 'Bearer $token'
-  },
+      headers: {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+        HttpHeaders.authorizationHeader: 'Bearer $token'
+      },
     );
-    var body=json.decode(response.body);
+    var body = json.decode(response.body);
     setState(() {
-      data=body;
+      data = body;
     });
-
-      
-    
   }
 }
