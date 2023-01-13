@@ -8,7 +8,7 @@ import 'package:flutter_application_1/pages/addremider.dart';
 import 'package:flutter_application_1/pages/home.dart';
 import 'package:flutter_application_1/pages/medicine_add.dart';
 
-class PageFirstLayout extends StatelessWidget {
+class PageFirstLayout extends StatefulWidget {
   PageFirstLayout(
       {
         
@@ -26,10 +26,15 @@ class PageFirstLayout extends StatelessWidget {
   final Color color;
 
   @override
+  State<PageFirstLayout> createState() => _PageFirstLayoutState();
+}
+
+class _PageFirstLayoutState extends State<PageFirstLayout> {
+  @override
   Widget build(BuildContext context) {
     int _currentIndex=0;
     return Scaffold(
-      backgroundColor: color,
+      backgroundColor: widget.color,
       appBar: AppBar(
         //leading: IconButton(icon: Icon(
           //Icons.arrow_back
@@ -40,7 +45,7 @@ class PageFirstLayout extends StatelessWidget {
         toolbarHeight: 80,
         titleSpacing: 30,
         title: Text(
-          appBarTitle,
+          widget.appBarTitle,
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.normal,
@@ -49,10 +54,10 @@ class PageFirstLayout extends StatelessWidget {
           ),
         ),
         actions: [
-          appBarRight
+          widget.appBarRight
         ],
         elevation: 0.0,
-        backgroundColor: color,
+        backgroundColor: widget.color,
         iconTheme: IconThemeData(
           color: Colors.black, //change your color here
         ),
@@ -60,9 +65,9 @@ class PageFirstLayout extends StatelessWidget {
       body:
       Column(
         children: [
-        topChild,
+        widget.topChild,
         CurvedContainer(
-            containerChild
+            widget.containerChild
       ),
         ],
       
@@ -77,7 +82,7 @@ class PageFirstLayout extends StatelessWidget {
         selectedFontSize: 14,
         unselectedFontSize: 14,
         onTap: (value) {
-          //setState(() => _currentIndex = value);
+          setState(() => _currentIndex = value);
           if (value == 0) {
             Navigator.push(context, MaterialPageRoute(builder: (_) => Home()));
           } else if (value == 1) {
@@ -113,5 +118,4 @@ class PageFirstLayout extends StatelessWidget {
       ),
     );
   }
- 
 }

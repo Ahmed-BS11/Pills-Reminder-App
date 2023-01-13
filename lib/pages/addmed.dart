@@ -16,6 +16,7 @@ class AddMed extends StatefulWidget {
 }
 
 class _AddMedState extends State<AddMed> {
+  int _currentIndex=2;
   var selecteditem = null;
   /*static List<MedicineModel> main_med_list=[MedicineModel('paracetamol', '1 pill', 'after breakfeast '),
   MedicineModel('gripex', '1 sachets', 'before sleep '),

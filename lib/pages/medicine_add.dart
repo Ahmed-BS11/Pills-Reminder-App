@@ -22,7 +22,7 @@ class _Med_addState extends State<Med_add> {
     'syringe.png',
 
   ];
-   int _selectedIndex = 0;
+   int _selectedIndex = 3;
   @override
   Widget build(BuildContext context) {
     return PageFirstLayout(

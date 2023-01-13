@@ -15,6 +15,7 @@ class AddRemider extends StatefulWidget {
 }
 
 class _AddRemiderState extends State<AddRemider> {
+  int _currentIndex=3;
   bool repeat = false;
   bool isEveryday = false;
   List<int> days = [];
