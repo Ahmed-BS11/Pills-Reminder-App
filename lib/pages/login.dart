@@ -172,7 +172,10 @@ class _LoginDemoState extends State<LoginDemo> {
                 top: 10,
               ),
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (_) => PswReset()));
+                },
                 child: Text(
                   'Forgot Password',
                   style: TextStyle(color: Color(0xff003049), fontSize: 15),

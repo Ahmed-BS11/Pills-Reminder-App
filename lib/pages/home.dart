@@ -133,7 +133,9 @@ class _HomeState extends State<Home> {
                       name: names[i],
                       description: des[i],
                     ),
-                ], /*
+                ],
+                 ],
+            ), /*
                     Card(
                 margin: EdgeInsets.all(10),
                 color: Colors.green[100],
@@ -190,8 +192,7 @@ class _HomeState extends State<Home> {
                   ],
                 ),*/
               )*/
-              ],
-            ),
+             
           ]),
         ));
   }

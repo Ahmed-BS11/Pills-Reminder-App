@@ -1,12 +1,20 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/model/medicine.dart';
 import 'package:flutter_application_1/theme.dart';
+import 'package:http/http.dart' as http;
+
 import 'package:flutter_application_1/widgets/buttonprimary.dart';
 import 'package:flutter_application_1/widgets/general_logo.dart';
 import 'package:flutter_application_1/pages/illustrations.dart';
 import 'package:flutter_application_1/widgets/pagefirst.dart';
 import 'package:flutter_application_1/pages/medicine_add.dart';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../widgets/Microcard.dart';
 
 class AddMed extends StatefulWidget {
   //const AddMed ({super.key});
@@ -18,6 +26,31 @@ class AddMed extends StatefulWidget {
 class _AddMedState extends State<AddMed> {
   int _currentIndex=2;
   var selecteditem = null;
+  List<String> names=[];
+  List<String> des=[];
+  List<int> ids=[];
+  List<int> idshapes=[];
+  var data=[];
+  int value=7;
+  var token;
+  @override
+   void initState() {
+    getData();
+    super.initState();
+  }
+
+  _checkToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    token = prefs.getString('token');
+    print(token);
+  }
+
+  getData()async
+  {
+    await _checkToken();
+    await getPills();
+  }
+  
   /*static List<MedicineModel> main_med_list=[MedicineModel('paracetamol', '1 pill', 'after breakfeast '),
   MedicineModel('gripex', '1 sachets', 'before sleep '),
   MedicineModel('insuline', '10 mg', 'after launch '),
@@ -85,8 +118,38 @@ class _AddMedState extends State<AddMed> {
               ),
             ),*/
             ),
-        containerChild: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+        containerChild: Container(
+          //crossAxisAlignment: CrossAxisAlignment.stretch,
+          child: Wrap(
+            children: [
+              Column(
+              children: data.map(((e) {
+                ids.add(e["id"]);
+                des.add(e["description"]);
+                idshapes.add(e["id_Shape"]);
+                names.add(e["name"]);
+                return Text("");
+              })).toList(),
+            )
+            ,Column(
+              children: [
+                if (value == 0) ...[
+                  Center(child: Text("no reminders today")),
+                ] else ...[
+                  for (int i = 0; i < ids.length; i++)
+                    MicroCard(
+                      id: ids[i],
+                      idshape: idshapes[i],
+                      name: names[i],
+                      description: des[i],
+                    ),
+                ],
+                 ],
+            ),
+            ],
+          ),
+
+
         )
         /*children: [
           SizedBox(height:20.0),
@@ -110,4 +173,23 @@ class _AddMedState extends State<AddMed> {
 
         );
   }
+
+ getPills() async {
+  
+  final Uri url = Uri.parse('http://127.0.0.1:8000/api/pills');
+  final response = await http.get(
+    url,
+    headers: {'Content-type': 'application/json',
+        'Accept': 'application/json',
+        HttpHeaders.authorizationHeader: 'Bearer $token'
+},
+  );
+  var body=json.decode(response.body);
+  setState(() {
+     data=body;
+  });
+
+}
+
+
 }
