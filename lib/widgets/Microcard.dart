@@ -85,13 +85,14 @@ class _MicroCardState extends State<MicroCard> {
                 children: [
                   IconButton(
                       onPressed: () {
-                        setState(() {
-                          visibilityController = false;
-                        });
+                        
                       },
                       icon: const Icon(Icons.edit)),
                   IconButton(
                       onPressed: () {
+                        setState(() {
+                          visibilityController = false;
+                        });
                         DeletePills();
                       },
                       icon: const Icon(Icons.delete)),
