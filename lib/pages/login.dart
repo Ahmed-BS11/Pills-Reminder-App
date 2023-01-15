@@ -194,7 +194,7 @@ class _LoginDemoState extends State<LoginDemo> {
                   print(data);
                   Navigator.push(
                       context, MaterialPageRoute(builder: (_) => Home()));
-                  /*if (isValidEmail(email)) {
+                  if (isValidEmail(email)) {
                     
                     
                     print(email);
@@ -213,7 +213,7 @@ class _LoginDemoState extends State<LoginDemo> {
                         );
                       },
                     );
-                  }*/
+                  }
 
                   /*Navigator.of(context)
                       .push(MaterialPageRoute(builder: (context) {
