@@ -59,7 +59,7 @@ class _MicroCardState extends State<MicroCard> {
 
   DeleteData() async {
     await _checkToken();
-    await DeletePills(token);
+    await DeletePills();
   }
 
   @override
@@ -92,7 +92,7 @@ class _MicroCardState extends State<MicroCard> {
                       icon: const Icon(Icons.edit)),
                   IconButton(
                       onPressed: () {
-                        DeletePills(widget.id);
+                        DeletePills();
                       },
                       icon: const Icon(Icons.delete)),
                 ],
@@ -121,8 +121,8 @@ class _MicroCardState extends State<MicroCard> {
     var body = json.decode(response.body);
   }
 
-  DeletePills(id) async {
-    final Uri url = Uri.parse('http://127.0.0.1:8000/api/pills/delete/$id');
+  DeletePills() async {
+    final Uri url = Uri.parse('http://127.0.0.1:8000/api/pills/delete/');
     final response = await http.delete(url, headers: {
       "content-type": "application/json",
       'Accept': 'application/json',
