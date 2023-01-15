@@ -1,6 +1,10 @@
 # flutter_application_1
 
-A new Flutter project.
+ this application was developed for the web/mobile project
+ of this year year. this project called +medihealth helps patient to 
+ follow their medication schedual time by adding  their prescripted drugs and setting  alarms and notofications.
+ In order to launch this app correctly ,this configurations are needed :
+ 
 
 ## Getting Started
 
