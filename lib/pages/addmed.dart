@@ -24,17 +24,17 @@ class AddMed extends StatefulWidget {
 }
 
 class _AddMedState extends State<AddMed> {
-  int _currentIndex=2;
+  int _currentIndex = 2;
   var selecteditem = null;
-  List<String> names=[];
-  List<String> des=[];
-  List<int> ids=[];
-  List<int> idshapes=[];
-  var data=[];
-  int value=7;
+  List<String> names = [];
+  List<String> des = [];
+  List<int> ids = [];
+  List<int> idshapes = [];
+  var data = [];
+  int value = 7;
   var token;
   @override
-   void initState() {
+  void initState() {
     getData();
     super.initState();
   }
@@ -45,12 +45,11 @@ class _AddMedState extends State<AddMed> {
     print(token);
   }
 
-  getData()async
-  {
+  getData() async {
     await _checkToken();
     await getPills();
   }
-  
+
   /*static List<MedicineModel> main_med_list=[MedicineModel('paracetamol', '1 pill', 'after breakfeast '),
   MedicineModel('gripex', '1 sachets', 'before sleep '),
   MedicineModel('insuline', '10 mg', 'after launch '),
@@ -78,7 +77,6 @@ class _AddMedState extends State<AddMed> {
             child: DropdownSearch<String>(
               popupProps: PopupProps.menu(
                 showSelectedItems: true,
-                //disabledItemFn: (String s) => s.startsWith('I'),
               ),
               items: ["gripex", "insuline", "Statin", 'paracetamol'],
               dropdownDecoratorProps: DropDownDecoratorProps(
@@ -123,73 +121,50 @@ class _AddMedState extends State<AddMed> {
           child: Wrap(
             children: [
               Column(
-              children: data.map(((e) {
-                ids.add(e["id"]);
-                des.add(e["description"]);
-                idshapes.add(e["id_Shape"]);
-                names.add(e["name"]);
-                return Text("");
-              })).toList(),
-            )
-            ,Column(
-              children: [
-                if (value == 0) ...[
-                  Center(child: Text("no reminders today")),
-                ] else ...[
-                  for (int i = 0; i < ids.length; i++)
-                    MicroCard(
-                      id: ids[i],
-                      idshape: idshapes[i],
-                      name: names[i],
-                      description: des[i],
-                    ),
+                children: data.map(((e) {
+                  ids.add(e["id"]);
+                  des.add(e["description"]);
+                  idshapes.add(e["id_Shape"]);
+                  names.add(e["name"]);
+                  return Text("");
+                })).toList(),
+              ),
+              Column(
+                children: [
+                  if (value == 0) ...[
+                    Center(child: Text("no reminders today")),
+                  ] else ...[
+                    for (int i = 0; i < ids.length; i++)
+                      MicroCard(
+                        id: ids[i],
+                        idshape: idshapes[i],
+                        name: names[i],
+                        description: des[i],
+                      ),
+                  ],
                 ],
-                 ],
-            ),
+              ),
             ],
           ),
-
-
         )
-        /*children: [
-          SizedBox(height:20.0),
-          Expanded(child: ListView.builder(
-            itemCount:displaylist.length ,
-            itemBuilder: (context, index) => ListTile(
-              contentPadding: EdgeInsets.all(8.0),
-              title: Text('displaylist[index].name!', style:TextStyle(
-                color:Colors.black,
-                fontWeight: FontWeight.bold,
-
-              ),
-              ),
-              subtitle: Text('${displaylist[index].dose}',
-              style:TextStyle( color:Colors.black,
-              )),
-
-            ),
-          ),)
-        ],*/
-
         );
   }
 
- getPills() async {
-  
-  final Uri url = Uri.parse('http://127.0.0.1:8000/api/pills');
-  final response = await http.get(
-    url,
-    headers: {'Content-type': 'application/json',
+  getPills() async {
+    final Uri url = Uri.parse('http://127.0.0.1:8000/api/pills');
+    final response = await http.get(
+      url,
+      headers: {
+        'Content-type': 'application/json',
         'Accept': 'application/json',
         HttpHeaders.authorizationHeader: 'Bearer $token'
-},
-  );
-  var body=json.decode(response.body);
-  setState(() {
-     data=body;
-  });
-
-}
+      },
+    );
+    var body = json.decode(response.body);
+    setState(() {
+      data = body;
+    });
+  }
 
 
 }
